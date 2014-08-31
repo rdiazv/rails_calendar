@@ -16,5 +16,11 @@ module RailsCalendar
         end
       end
     end
+
+    def day_cell(date)
+      content_tag(:td) do
+        concat date.day
+      end
+    end
   end
 end
