@@ -18,8 +18,9 @@ module RailsCalendar
     end
 
     def day_cell(date)
+      day_class = "#{RailsCalendar.configuration.class_prefix}#{RailsCalendar.configuration.day_number_class}"
       content_tag(:td) do
-        concat date.day
+        concat content_tag(:span, date.day, class: day_class)
       end
     end
   end

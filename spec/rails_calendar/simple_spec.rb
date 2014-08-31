@@ -29,10 +29,28 @@ describe RailsCalendar::Simple, type: :feature do
   end
 
   describe '#day_cell(date)' do
-    it 'should render a td tag with the date day number' do
-      date = Date.strptime('1900-01-20')
-      cell = @calendar.send(:day_cell, date)
-      expect(cell).to have_selector('td', text: '20')
+    before do
+      @date = Date.strptime('1900-01-20')
+    end
+
+    it 'should render a td tag' do
+      cell = @calendar.send(:day_cell, @date)
+      expect(cell).to have_selector('td')
+    end
+
+    it 'should render a span with the day number' do
+      cell = @calendar.send(:day_cell, @date)
+      expect(cell).to have_selector('td > span', text: '20')
+    end
+
+    context 'the day number span' do
+      it 'should have the class specified by day_number_class config' do
+        RailsCalendar.configuration.class_prefix = 'rspec-'
+        RailsCalendar.configuration.day_number_class = 'test-day'
+
+        cell = @calendar.send(:day_cell, @date)
+        expect(cell).to have_selector('td > span.rspec-test-day')
+      end
     end
   end
 end
