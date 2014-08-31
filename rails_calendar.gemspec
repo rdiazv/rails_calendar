@@ -20,4 +20,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "~> 3.0.2"
+  s.add_development_dependency "rspec-legacy_formatters", "~> 1.0.0"
+  s.add_development_dependency "rspec-nc", "~> 0.1.1"
+  s.add_development_dependency "guard", "~> 2.6.1"
+  s.add_development_dependency "guard-rspec", "~> 4.3.1"
 end
