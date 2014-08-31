@@ -8,6 +8,17 @@ module RailsCalendar
     attr_accessor :start_of_week
 
     def initialize
+
+    def to_h
+      {
+        class_prefix: @class_prefix,
+        i18n_days: @i18n_days,
+        day_number_class: @day_number_class,
+        day_cell_class: @day_cell_class,
+        today_class: @today_class,
+        start_of_week: @start_of_week
+      }
+    end
       @class_prefix = 'calendar-'
       @i18n_days = 'date.abbr_day_names'
       @day_number_class = 'day-number'
