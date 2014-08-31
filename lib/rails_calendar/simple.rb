@@ -10,9 +10,9 @@ module RailsCalendar
     def header
       content_tag :thead do
         content_tag :tr do
-          I18n.t(RailsCalendar.configuration.i18n_days).map do |day|
-            content_tag :th, day.titleize
-          end.join.html_safe
+          I18n.t(RailsCalendar.configuration.i18n_days).each do |day|
+            concat content_tag(:th, day.titleize)
+          end
         end
       end
     end
