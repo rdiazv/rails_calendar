@@ -1,0 +1,2 @@
+module RailsCalendar
+end
