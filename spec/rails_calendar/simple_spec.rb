@@ -34,6 +34,32 @@ describe RailsCalendar::Simple, type: :feature do
     end
   end
 
+  describe '#body' do
+    context 'for every week' do
+      it 'should render a tr with every day rendered by day_cell' do
+        weeks = [
+          [ Date.today, 1.day.ago, 2.days.ago ],
+          [ 3.days.ago, 4.days.ago, 5.days.ago ]
+        ]
+
+        expect(@calendar).to receive(:weeks).and_return(weeks)
+
+        weeks.each do |week|
+          week.each do |date|
+            expect(@calendar).to receive(:day_cell).with(date) do
+              "<td>#{date.day}</td>".html_safe
+            end
+          end
+        end
+
+        body = @calendar.send(:body)
+
+        expect(body).to have_selector('tbody > tr', count: 2)
+        expect(body).to have_selector('tbody > tr > td', count: 6)
+      end
+    end
+  end
+
   describe '#weeks' do
     it 'should return an array of dates divided by week' do
       @calendar.calendar_day = Date.strptime('2014-07-01')

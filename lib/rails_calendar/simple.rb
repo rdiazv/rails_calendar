@@ -26,6 +26,18 @@ module RailsCalendar
       end
     end
 
+    def body
+      rows = weeks.map do |week|
+        content_tag :tr do
+          week.each do |day|
+            concat day_cell(day)
+          end
+        end
+      end
+
+      content_tag :tbody, rows.join('').html_safe
+    end
+
     def weeks
       first = calendar_day.beginning_of_month.beginning_of_week
       last = calendar_day.end_of_month.end_of_week
