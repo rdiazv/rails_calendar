@@ -34,6 +34,32 @@ describe RailsCalendar::Simple, type: :feature do
     end
   end
 
+  describe '#weeks' do
+    it 'should return an array of dates divided by week' do
+      @calendar.calendar_day = Date.strptime('2014-07-01')
+      weeks = @calendar.send(:weeks)
+
+      expect(weeks).to be_a(Array)
+
+      weeks.each do |week|
+        expect(week).to be_a(Array)
+        expect(week.length).to be(7)
+
+        week.each do |day|
+          expect(day).to be_a(Date)
+        end
+      end
+    end
+
+    it 'should always return full weeks' do
+      @calendar.calendar_day = Date.strptime('2014-07-01')
+      weeks = @calendar.send(:weeks)
+
+      expect(weeks.first.first).to eq(Date.strptime('2014-06-30'))
+      expect(weeks.last.last).to eq(Date.strptime('2014-08-03'))
+    end
+  end
+
   describe '#day_cell_classes(date)' do
     before do
       RailsCalendar.configuration.class_prefix = 'rspec-'

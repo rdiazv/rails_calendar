@@ -1,4 +1,5 @@
 require 'action_view'
+require 'active_support/all'
 
 module RailsCalendar
   class Simple
@@ -6,9 +7,11 @@ module RailsCalendar
     include ActionView::Context
 
     attr_reader :config
+    attr_accessor :calendar_day
 
-    def initialize
+    def initialize(calendar_day = Date.today)
       @config = RailsCalendar.configuration
+      @calendar_day = calendar_day
     end
 
     private
@@ -21,6 +24,12 @@ module RailsCalendar
           end
         end
       end
+    end
+
+    def weeks
+      first = calendar_day.beginning_of_month.beginning_of_week
+      last = calendar_day.end_of_month.end_of_week
+      (first..last).to_a.in_groups_of(7)
     end
 
     def day_cell(date)
