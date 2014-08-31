@@ -18,6 +18,17 @@ describe RailsCalendar::Simple, type: :feature do
     end
   end
 
+  describe '#table' do
+    it 'should render a table concatenating the header and body' do
+      expect(@calendar).to receive(:header).and_return('<thead></thead>'.html_safe)
+      expect(@calendar).to receive(:body).and_return('<tbody></tbody>'.html_safe)
+
+      table = @calendar.send(:table)
+
+      expect(table).to have_selector('table > thead, table > tbody')
+    end
+  end
+
   describe '#header' do
     before do
       @header = @calendar.send(:header)

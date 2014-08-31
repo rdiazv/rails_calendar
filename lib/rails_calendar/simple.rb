@@ -16,6 +16,12 @@ module RailsCalendar
 
     private
 
+    def table
+      content_tag :table do
+        header + body
+      end
+    end
+
     def header
       content_tag :thead do
         content_tag :tr do
