@@ -9,6 +9,8 @@ module RailsCalendar
     attr_reader :config
     attr_accessor :calendar_day
 
+    DAYS = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
+
     def initialize(calendar_day = Date.today)
       @config = RailsCalendar.configuration
       @calendar_day = calendar_day
@@ -27,9 +29,11 @@ module RailsCalendar
     end
 
     def header
+      index = DAYS.index(config.start_of_week)
+
       content_tag :thead do
         content_tag :tr do
-          I18n.t(config.i18n_days).each do |day|
+          I18n.t(config.i18n_days).rotate(index).each do |day|
             concat content_tag(:th, day.titleize)
           end
         end
@@ -49,8 +53,8 @@ module RailsCalendar
     end
 
     def weeks
-      first = calendar_day.beginning_of_month.beginning_of_week
-      last = calendar_day.end_of_month.end_of_week
+      first = calendar_day.beginning_of_month.beginning_of_week(config.start_of_week)
+      last = calendar_day.end_of_month.end_of_week(config.start_of_week)
       (first..last).to_a.in_groups_of(7)
     end
 

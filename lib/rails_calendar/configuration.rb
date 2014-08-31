@@ -5,6 +5,7 @@ module RailsCalendar
     attr_accessor :day_number_class
     attr_accessor :day_cell_class
     attr_accessor :today_class
+    attr_accessor :start_of_week
 
     def initialize
       @class_prefix = 'calendar-'
@@ -12,6 +13,7 @@ module RailsCalendar
       @day_number_class = 'day-number'
       @day_cell_class = 'day-cell'
       @today_class = 'today'
+      @start_of_week = :sunday
     end
 
     def get_class(name)

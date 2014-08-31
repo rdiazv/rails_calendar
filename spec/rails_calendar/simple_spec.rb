@@ -99,8 +99,8 @@ describe RailsCalendar::Simple, type: :feature do
       @calendar.calendar_day = Date.strptime('2014-07-01')
       weeks = @calendar.send(:weeks)
 
-      expect(weeks.first.first).to eq(Date.strptime('2014-06-30'))
-      expect(weeks.last.last).to eq(Date.strptime('2014-08-03'))
+      expect(weeks.first.first).to eq(Date.strptime('2014-06-29'))
+      expect(weeks.last.last).to eq(Date.strptime('2014-08-02'))
     end
   end
 
