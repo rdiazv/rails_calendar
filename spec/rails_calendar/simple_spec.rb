@@ -18,6 +18,13 @@ describe RailsCalendar::Simple, type: :feature do
     end
   end
 
+  describe '#to_s' do
+    it 'should render the calendar table' do
+      expect(@calendar).to receive(:table).and_return('<table></table>'.html_safe)
+      expect(@calendar.to_s).to eq('<table></table>')
+    end
+  end
+
   describe '#table' do
     it 'should render a table concatenating the header and body' do
       expect(@calendar).to receive(:header).and_return('<thead></thead>'.html_safe)

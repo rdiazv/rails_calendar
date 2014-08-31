@@ -14,6 +14,10 @@ module RailsCalendar
       @calendar_day = calendar_day
     end
 
+    def to_s
+      table
+    end
+
     private
 
     def table
