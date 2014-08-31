@@ -9,5 +9,10 @@ module RailsCalendar
       @i18n_days = 'date.abbr_day_names'
       @day_number_class = 'day-number'
     end
+
+    def get_class(name)
+      name = "#{name}_class" unless name.to_s.end_with?('_class')
+      "#{@class_prefix}#{send(name)}"
+    end
   end
 end
