@@ -34,6 +34,28 @@ describe RailsCalendar::Simple, type: :feature do
     end
   end
 
+  describe '#day_cell_classes(date)' do
+    before do
+      RailsCalendar.configuration.class_prefix = 'rspec-'
+      RailsCalendar.configuration.day_cell_class = 'test-cell'
+      RailsCalendar.configuration.today_class = 'today'
+    end
+
+    it 'should have the class specified by day_cell_class config' do
+      date = Date.strptime('1900-01-20')
+      cell_class = @calendar.send(:day_cell_classes, date)
+      expect(cell_class).to eq('rspec-test-cell')
+    end
+
+    context 'if the date is today' do
+      it 'should have the class specified by today_class config' do
+        date = Date.today
+        cell_class = @calendar.send(:day_cell_classes, date)
+        expect(cell_class).to eq('rspec-test-cell rspec-today')
+      end
+    end
+  end
+
   describe '#day_cell(date)' do
     before do
       @date = Date.strptime('1900-01-20')
@@ -50,12 +72,10 @@ describe RailsCalendar::Simple, type: :feature do
     end
 
     context 'the td' do
-      it 'should have the class specified by day_cell_class config' do
-        RailsCalendar.configuration.class_prefix = 'rspec-'
-        RailsCalendar.configuration.day_cell_class = 'test-cell'
-
+      it 'should assign de class returned by day_cell_classes' do
+        expect(@calendar).to receive(:day_cell_classes).and_return('test-class')
         cell = @calendar.send(:day_cell, @date)
-        expect(cell).to have_selector('td.rspec-test-cell')
+        expect(cell).to have_selector('td.test-class')
       end
     end
 

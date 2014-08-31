@@ -24,9 +24,16 @@ module RailsCalendar
     end
 
     def day_cell(date)
-      content_tag(:td, class: config.get_class(:day_cell)) do
+      content_tag(:td, class: day_cell_classes(date)) do
         concat content_tag(:span, date.day, class: config.get_class(:day_number))
       end
+    end
+
+    def day_cell_classes(date)
+      classes = []
+      classes << config.get_class(:day_cell)
+      classes << config.get_class(:today) if date == Date.today
+      classes.empty? ? nil : classes.join(' ')
     end
   end
 end
