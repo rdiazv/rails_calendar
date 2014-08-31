@@ -49,6 +49,16 @@ describe RailsCalendar::Simple, type: :feature do
       expect(cell).to have_selector('td > span', text: '20')
     end
 
+    context 'the td' do
+      it 'should have the class specified by day_cell_class config' do
+        RailsCalendar.configuration.class_prefix = 'rspec-'
+        RailsCalendar.configuration.day_cell_class = 'test-cell'
+
+        cell = @calendar.send(:day_cell, @date)
+        expect(cell).to have_selector('td.rspec-test-cell')
+      end
+    end
+
     context 'the day number span' do
       it 'should have the class specified by day_number_class config' do
         RailsCalendar.configuration.class_prefix = 'rspec-'

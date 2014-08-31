@@ -24,7 +24,7 @@ module RailsCalendar
     end
 
     def day_cell(date)
-      content_tag(:td) do
+      content_tag(:td, class: config.get_class(:day_cell)) do
         concat content_tag(:span, date.day, class: config.get_class(:day_number))
       end
     end
