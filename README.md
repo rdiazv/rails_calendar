@@ -26,17 +26,16 @@ $ gem install rails_calendar
 
 Use the provided helper to render the calendar in your view:
 
-```ruby
+```erb
 <%= rails_calendar %>
 ```
 
 By default the calendar will show the current month, but can be easily
-changed passing a Date object to the helper:
+changed passing a Date object to the helper. For example, to render the
+calendar for March 2000:
 
-```ruby
+```erb
 <%= rails_calendar(Date.new(2000, 3)) %>
-
-//-> This shows the calendar for March 2000
 ```
 
 Additionally, you can specify a block that will be invoked for each day to
