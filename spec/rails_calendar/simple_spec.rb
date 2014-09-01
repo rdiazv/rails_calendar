@@ -9,7 +9,7 @@ I18n.locale = :test
 
 describe RailsCalendar::Simple, type: :feature do
   before do
-    @calendar = RailsCalendar::Simple.new
+    @calendar = RailsCalendar::Simple.new Date.today
   end
 
   after do
@@ -130,7 +130,8 @@ describe RailsCalendar::Simple, type: :feature do
 
     it 'should have the class specified by day_cell_class config' do
       date = Date.strptime('1900-01-20')
-      cell_class = @calendar.send(:day_cell_classes, date)
+      calendar = RailsCalendar::Simple.new(date)
+      cell_class = calendar.send(:day_cell_classes, date)
       expect(cell_class).to eq('rspec-test-cell')
     end
 
@@ -139,6 +140,65 @@ describe RailsCalendar::Simple, type: :feature do
         date = Date.today
         cell_class = @calendar.send(:day_cell_classes, date)
         expect(cell_class).to eq('rspec-test-cell rspec-today')
+      end
+    end
+
+    context 'if the date is from another month' do
+      it 'should have the class specified by another_month config' do
+        date = Date.today
+        cell_class = @calendar.send(:day_cell_classes, date)
+        expect(cell_class).to eq('rspec-test-cell rspec-today')
+      end
+    end
+  end
+
+  describe '#date_callback(date)' do
+    context 'if the calendar has a callback' do
+      before do
+        @calendar.callback = Proc.new do |date|
+          date == Date.today ? 'today' : 'not today'
+        end
+      end
+
+      context 'if the calendar has a view context' do
+        before do
+          @view_context = double('view_context')
+          @calendar.view_context = @view_context
+        end
+
+        it 'should capture the block with the view context' do
+          expect(@view_context).to receive(:capture)
+          @calendar.send(:date_callback, Date.today)
+        end
+      end
+
+      context 'if the calendar noes not have a view context' do
+        before do
+          @calendar.view_context = nil
+        end
+
+        it 'should capture the block with the default context' do
+          expect(@calendar).to receive(:capture)
+          @calendar.send(:date_callback, Date.today)
+        end
+      end
+
+      it 'should return the callback output' do
+        output = @calendar.send(:date_callback, Date.today)
+        expect(output).to eq('today')
+
+        output = @calendar.send(:date_callback, 1.day.ago)
+        expect(output).to eq('not today')
+      end
+    end
+
+    context 'if the calendar does not have a callback' do
+      before do
+        @calendar.callback = nil
+      end
+
+      it 'should return nothing' do
+        expect(@calendar.send(:date_callback, Date.today)).to_not be_present
       end
     end
   end

@@ -8,12 +8,16 @@ module RailsCalendar
 
     attr_reader :config
     attr_accessor :calendar_day
+    attr_accessor :callback
+    attr_accessor :view_context
 
     DAYS = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
-    def initialize(calendar_day = Date.today)
+    def initialize(calendar_day, view_context = nil, &block)
       @config = RailsCalendar.configuration
       @calendar_day = calendar_day
+      @view_context = view_context
+      @callback = block
     end
 
     def to_s
@@ -56,6 +60,16 @@ module RailsCalendar
       first = calendar_day.beginning_of_month.beginning_of_week(config.start_of_week)
       last = calendar_day.end_of_month.end_of_week(config.start_of_week)
       (first..last).to_a.in_groups_of(7)
+    end
+
+    def date_callback(date)
+      return nil unless callback.present?
+
+      if view_context.present?
+        view_context.capture(date, &callback)
+      else
+        capture(date, &callback)
+      end
     end
 
     def day_cell(date)
