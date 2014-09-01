@@ -10,7 +10,7 @@ An easy to use calendar for your rails app.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails_calendar'
+gem 'rails-calendar'
 ```
 
 And then execute:
@@ -22,7 +22,7 @@ $ bundle
 Or install it yourself as:
 
 ```
-$ gem install rails_calendar
+$ gem install rails-calendar
 ```
 
 ## Usage

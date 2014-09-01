@@ -5,7 +5,7 @@ require "rails_calendar/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "rails_calendar"
+  s.name        = "rails-calendar"
   s.version     = RailsCalendar::VERSION
   s.authors     = ["Rodrigo Díaz V."]
   s.email       = ["rdiazv89@gmail.com"]
