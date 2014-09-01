@@ -2,4 +2,3 @@
 --require rspec/legacy_formatters
 --require spec_helper
 --format doc
---format Nc
