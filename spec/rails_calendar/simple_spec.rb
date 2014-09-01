@@ -1,7 +1,7 @@
 I18n.backend.store_translations :test,
   date: {
     abbr_day_names: [
-      'A', 'B', 'C', 'D', 'E', 'F', 'G'
+      'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
     ]
   }
 
@@ -54,6 +54,12 @@ describe RailsCalendar::Simple, type: :feature do
         expect(@header).to have_selector('th', text: day.titleize)
       end
     end
+
+    it 'should respect the start_of_week config' do
+      RailsCalendar.configuration.start_of_week = :friday
+      header = @calendar.send(:header)
+      expect(header).to have_selector('th:first-child', text: 'Fri')
+    end
   end
 
   describe '#body' do
@@ -97,6 +103,13 @@ describe RailsCalendar::Simple, type: :feature do
           expect(day).to be_a(Date)
         end
       end
+    end
+
+    it 'should respect the start_of_week config' do
+      RailsCalendar.configuration.start_of_week = :friday
+      @calendar.calendar_day = Date.strptime('2014-07-01')
+      weeks = @calendar.send(:weeks)
+      expect(weeks.first.first).to eq(Date.strptime('2014-06-27'))
     end
 
     it 'should always return full weeks' do
