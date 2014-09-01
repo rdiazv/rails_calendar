@@ -1,5 +1,6 @@
 # RailsCalendar
 
+[![Gem Version](https://badge.fury.io/rb/rails-calendar.svg)](http://badge.fury.io/rb/rails-calendar)
 [![Coverage Status](https://coveralls.io/repos/rdiazv/rails_calendar/badge.png?branch=master)](https://coveralls.io/r/rdiazv/rails_calendar?branch=master)
 [![Build Status](https://travis-ci.org/rdiazv/rails_calendar.svg?branch=master)](https://travis-ci.org/rdiazv/rails_calendar)
 
@@ -10,7 +11,7 @@ An easy to use calendar for your rails app.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rails_calendar'
+gem 'rails-calendar'
 ```
 
 And then execute:
@@ -22,7 +23,7 @@ $ bundle
 Or install it yourself as:
 
 ```
-$ gem install rails_calendar
+$ gem install rails-calendar
 ```
 
 ## Usage
