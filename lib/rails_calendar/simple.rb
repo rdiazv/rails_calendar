@@ -68,6 +68,7 @@ module RailsCalendar
       classes = []
       classes << config.get_class(:day_cell)
       classes << config.get_class(:today) if date == Date.today
+      classes << config.get_class(:another_month) unless date.month == calendar_day.month
       classes.empty? ? nil : classes.join(' ')
     end
   end
