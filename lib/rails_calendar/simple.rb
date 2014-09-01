@@ -23,7 +23,7 @@ module RailsCalendar
     private
 
     def table
-      content_tag :table do
+      content_tag :table, class: config.get_class(:table) do
         header + body
       end
     end
@@ -34,7 +34,7 @@ module RailsCalendar
       content_tag :thead do
         content_tag :tr do
           I18n.t(config.i18n_days).rotate(index).each do |day|
-            concat content_tag(:th, day.titleize)
+            concat content_tag(:th, day.titleize, class: config.get_class(:day_name))
           end
         end
       end

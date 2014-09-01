@@ -2,8 +2,10 @@ module RailsCalendar
   class Configuration
     attr_accessor :class_prefix
     attr_accessor :i18n_days
+    attr_accessor :table_class
     attr_accessor :day_number_class
     attr_accessor :day_cell_class
+    attr_accessor :day_name_class
     attr_accessor :today_class
     attr_accessor :start_of_week
 
@@ -15,8 +17,10 @@ module RailsCalendar
       {
         class_prefix: @class_prefix,
         i18n_days: @i18n_days,
+        table_class: @table_class,
         day_number_class: @day_number_class,
         day_cell_class: @day_cell_class,
+        day_name_class: @day_name_class,
         today_class: @today_class,
         start_of_week: @start_of_week
       }
@@ -25,8 +29,10 @@ module RailsCalendar
     def reset!
       @class_prefix = 'calendar-'
       @i18n_days = 'date.abbr_day_names'
+      @table_class = 'table'
       @day_number_class = 'day-number'
       @day_cell_class = 'day-cell'
+      @day_name_class = 'day-name'
       @today_class = 'today'
       @start_of_week = :sunday
     end
