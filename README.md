@@ -1,5 +1,8 @@
 # RailsCalendar
 
+[![Coverage Status](https://coveralls.io/repos/rdiazv/rails_calendar/badge.png?branch=master)](https://coveralls.io/r/rdiazv/rails_calendar?branch=master)
+[![Build Status](https://travis-ci.org/rdiazv/rails_calendar.svg?branch=master)](https://travis-ci.org/rdiazv/rails_calendar)
+
 An easy to use calendar for your rails app.
 
 ## Installation
