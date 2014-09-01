@@ -218,9 +218,41 @@ describe RailsCalendar::Simple, type: :feature do
       expect(cell).to have_selector('td > span', text: '20')
     end
 
+    it 'should invoke date_callback passing the current date' do
+      expect(@calendar).to receive(:date_callback).with(@date)
+      @calendar.send(:day_cell, @date)
+    end
+
+    context 'if date_callback returns something' do
+      it 'should render a div with the output' do
+        allow(@calendar).to receive(:date_callback).and_return('test output')
+        cell = @calendar.send(:day_cell, @date)
+        expect(cell).to have_selector('td > div', text: 'test output')
+      end
+
+      context 'the div' do
+        it 'should have the class specified by day_contents_class config' do
+          RailsCalendar.configuration.class_prefix = 'rspec-'
+          RailsCalendar.configuration.day_contents_class = 'test-day'
+
+          allow(@calendar).to receive(:date_callback).and_return('test output')
+          cell = @calendar.send(:day_cell, @date)
+          expect(cell).to have_selector('td > div.rspec-test-day')
+        end
+      end
+    end
+
+    context 'if date_callback returns nothing' do
+      it 'should not render a div' do
+        allow(@calendar).to receive(:date_callback)
+        cell = @calendar.send(:day_cell, @date)
+        expect(cell).to_not have_selector('td > div')
+      end
+    end
+
     context 'the td' do
       it 'should assign de class returned by day_cell_classes' do
-        expect(@calendar).to receive(:day_cell_classes).and_return('test-class')
+        allow(@calendar).to receive(:day_cell_classes).and_return('test-class')
         cell = @calendar.send(:day_cell, @date)
         expect(cell).to have_selector('td.test-class')
       end

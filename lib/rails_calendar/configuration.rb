@@ -6,6 +6,7 @@ module RailsCalendar
     attr_accessor :day_number_class
     attr_accessor :day_cell_class
     attr_accessor :day_name_class
+    attr_accessor :day_contents_class
     attr_accessor :today_class
     attr_accessor :another_month_class
     attr_accessor :start_of_week
@@ -22,6 +23,7 @@ module RailsCalendar
         day_number_class: @day_number_class,
         day_cell_class: @day_cell_class,
         day_name_class: @day_name_class,
+        day_contents_class: @day_contents_class,
         today_class: @today_class,
         another_month_class: @another_month_class,
         start_of_week: @start_of_week
@@ -35,6 +37,7 @@ module RailsCalendar
       @day_number_class = 'day-number'
       @day_cell_class = 'day-cell'
       @day_name_class = 'day-name'
+      @day_contents_class = 'day-contents'
       @today_class = 'today'
       @another_month_class = 'another-month'
       @start_of_week = :sunday

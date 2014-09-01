@@ -73,8 +73,14 @@ module RailsCalendar
     end
 
     def day_cell(date)
+      callback_contents = date_callback(date)
+
       content_tag(:td, class: day_cell_classes(date)) do
         concat content_tag(:span, date.day, class: config.get_class(:day_number))
+
+        if callback_contents.present?
+          concat content_tag(:div, callback_contents, class: config.get_class(:day_contents))
+        end
       end
     end
 
