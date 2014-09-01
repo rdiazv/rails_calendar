@@ -12,6 +12,10 @@ describe RailsCalendar::Simple, type: :feature do
     @calendar = RailsCalendar::Simple.new
   end
 
+  after do
+    RailsCalendar.configuration.reset!
+  end
+
   describe '#initialize' do
     it 'should expose the global configuration through the config variable' do
       expect(@calendar.config).to be(RailsCalendar.configuration)

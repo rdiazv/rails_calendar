@@ -15,6 +15,23 @@ describe RailsCalendar::Configuration do
     end
   end
 
+  describe '#reset!' do
+    it 'should reset all settings' do
+      @config.reset!
+
+      original_settings = @config.to_h
+
+      @config.class_prefix = 'test-prefix'
+      @config.today_class = 'test-today'
+
+      expect(original_settings).to_not eq(@config.to_h)
+
+      @config.reset!
+
+      expect(original_settings).to eq(@config.to_h)
+    end
+  end
+
   describe '#get_class(name)' do
     it 'should concatenate the class prefix with the requested class' do
       @config.day_number_class = 'number-class'
